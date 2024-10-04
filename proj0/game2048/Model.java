@@ -120,6 +120,7 @@ public class Model extends Observable {
         }else if(side == Side.SOUTH){
             board.setViewingPerspective(Side.SOUTH);
         }
+
         int len = board.size();
         for(int i=0; i<len; i++){
             int limit = len;
