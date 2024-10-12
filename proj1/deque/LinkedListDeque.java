@@ -49,10 +49,7 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty(){
-        if(front.next == rear){
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 
     public int size(){
@@ -104,17 +101,19 @@ public class LinkedListDeque<T> {
         return current.data;
     }
 
+    public T getRecursiveHelper(int index, Node current){
+        if(index == 0){
+            return current.data;
+        }
+        return getRecursiveHelper(index - 1, current.next);
+    }
+
     public T getRecursive(int index){
-        if(isEmpty()){
+        if(isEmpty() || index < 0 || index >= size){
             return null;
         }
 
-        if(index == 0){
-            return front.next.data;
-        }
-
-        index -= 1;
-        return getRecursive(index);
+        return getRecursiveHelper(index, front.next);
     }
 
 //    public Iterator<T> iterator(){
