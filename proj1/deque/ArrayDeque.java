@@ -8,7 +8,7 @@ public class ArrayDeque<T> {
     private int front;
     private int rear;
 
-    ArrayDeque(){
+    public ArrayDeque(){
         array = (T[]) new Object[8];
         size = 0;
         front = 0;

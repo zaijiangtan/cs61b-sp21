@@ -20,7 +20,7 @@ public class LinkedListDeque<T> {
     private Node rear;
     private int size;
 
-    LinkedListDeque(){
+    public LinkedListDeque(){
         front.next = rear;
         front.prev = null;
         rear.prev = front;
