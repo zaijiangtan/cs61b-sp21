@@ -76,6 +76,7 @@ public class LinkedListDeque<T> {
         front.next.data = null;
         front.next = front.next.next;
         front.next.prev = front;
+        size -= 1;
         return item;
     }
 
@@ -87,6 +88,7 @@ public class LinkedListDeque<T> {
         rear.prev.data = null;
         rear.prev = rear.prev.prev;
         rear.prev.next = rear;
+        size -= 1;
         return item;
     }
 
