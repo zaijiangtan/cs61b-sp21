@@ -21,12 +21,10 @@ public class LinkedListDeque<T> {
     private int size;
 
     public LinkedListDeque(){
+        front = new Node(null);
+        rear = new Node(null);
         front.next = rear;
-        front.prev = null;
         rear.prev = front;
-        rear.next = null;
-        front.data = null;
-        rear.data = null;
         size = 0;
     }
 
@@ -65,6 +63,7 @@ public class LinkedListDeque<T> {
         Node p = front.next;
         while(p != rear){
             System.out.print(p.data + " ");
+            p = p.next;
         }
         System.out.println();
     }
@@ -75,8 +74,8 @@ public class LinkedListDeque<T> {
         }
         T item = front.next.data;
         front.next.data = null;
-        front.next.next.prev = front;
         front.next = front.next.next;
+        front.next.prev = front;
         return item;
     }
 
@@ -86,13 +85,13 @@ public class LinkedListDeque<T> {
         }
         T item = rear.prev.data;
         rear.prev.data = null;
-        rear.prev.prev.next = rear;
         rear.prev = rear.prev.prev;
+        rear.prev.next = rear;
         return item;
     }
 
     public T get(int index){
-        if(isEmpty()){
+        if(isEmpty() || index < 0 || index >= size){
             return null;
         }
         Node current = front.next;
