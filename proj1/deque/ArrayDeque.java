@@ -89,6 +89,10 @@ public class ArrayDeque<T> {
     }
 
     public T get(int index){
+        if(index < 0 || index >= size){
+            return null;
+        }
+        index = (front + 1 + index) % array.length;
         return array[index];
     }
 
