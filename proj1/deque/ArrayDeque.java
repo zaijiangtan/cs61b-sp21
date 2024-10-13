@@ -12,15 +12,16 @@ public class ArrayDeque<T> {
         array = (T[]) new Object[8];
         size = 0;
         front = 0;
-        rear = 0;
+        rear = 1;
     }
 
     private void resize(int newSize){
         T[] newArr = (T[]) new Object[newSize];
         for(int i = 0; i < size; i++){
-            newArr[i] = array[i];
-            array[i] = null;
+            newArr[i] = get(i);
         }
+        front = newSize - 1;
+        rear = size;
         array = newArr;
     }
 
@@ -40,7 +41,7 @@ public class ArrayDeque<T> {
         }
 
         array[rear] = item;
-        rear = (rear + 1) & array.length;
+        rear = (rear + 1) % array.length;
         size += 1;
     }
 
@@ -57,11 +58,11 @@ public class ArrayDeque<T> {
 
     public void printDeque(){
         if(!isEmpty()){
-            while(front != rear){
-                System.out.print(array[front] + " ");
-                front = (front + 1) % array.length;
+            for(int i = 0; i < size; i++){
+                System.out.print(get(i) + " ");
             }
         }
+        System.out.println();
     }
 
     public T removeFirst(){
