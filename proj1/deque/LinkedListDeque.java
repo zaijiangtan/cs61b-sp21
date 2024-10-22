@@ -84,6 +84,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         if (isEmpty()) {
             return null;
         }
+
         T item = front.next.data;
         front.next.data = null;
         front.next = front.next.next;
