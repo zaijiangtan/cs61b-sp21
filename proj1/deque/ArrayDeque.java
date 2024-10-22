@@ -36,7 +36,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private void resize(int newSize) {
         T[] newArr = (T[]) new Object[newSize];
         for (int i = 0; i < size; i++) {
-            newArr[i] = removeFirst();
+            newArr[i] = get(i);
         }
         front = newSize - 1;
         rear = size;
