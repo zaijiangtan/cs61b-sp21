@@ -1,7 +1,6 @@
 package deque;
 
 import java.util.Iterator;
-import java.util.Objects;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class Node {
@@ -9,7 +8,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         Node next;
         Node prev;
 
-        public Node(T item) {
+        Node(T item) {
             data = item;
             next = null;
             prev = null;
@@ -19,7 +18,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private class LinkedListDequeIterator implements Iterator<T> {
         private int index;
 
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             index = 0;
         }
 
@@ -73,7 +72,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
 
     public void printDeque() {
         Node p = front.next;
-        while(p != rear){
+        while (p != rear) {
             System.out.print(p.data + " ");
             p = p.next;
         }
@@ -81,7 +80,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeFirst() {
-        if(isEmpty()) {
+        if (isEmpty()) {
             return null;
         }
         T item = front.next.data;
@@ -93,9 +92,10 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeLast() {
-        if(isEmpty()){
+        if (isEmpty()) {
             return null;
         }
+
         T item = rear.prev.data;
         rear.prev.data = null;
         rear.prev = rear.prev.prev;
@@ -136,14 +136,19 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof LinkedListDeque)) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null) {
             return false;
         }
 
-        LinkedListDeque deque = (LinkedListDeque) o;
-        if (this == deque) {
-            return true;
+        if (!(o instanceof ArrayDeque)) {
+            return false;
         }
+
+        LinkedListDeque<T> deque = (LinkedListDeque<T>) o;
         if (this.size() != deque.size()) {
             return false;
         }

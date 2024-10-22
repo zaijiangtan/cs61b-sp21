@@ -15,17 +15,17 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         rear = 1;
     }
 
-    private class ArrayDequeIterator implements Iterator {
+    private class ArrayDequeIterator implements Iterator<T> {
         private int index;
-        public ArrayDequeIterator(){
+        ArrayDequeIterator() {
             index = 0;
         }
 
-        public boolean hasNext(){
+        public boolean hasNext() {
             return index < size;
         }
 
-        public T next(){
+        public T next() {
             T nextItem = get(index);
             index += 1;
             return nextItem;
@@ -80,14 +80,15 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
+        if (size < array.length / 4 && size >= 16) {
+            resize(array.length / 4);
+        }
+
         front = (front + 1) % array.length;
         T item = array[front];
         array[front] = null;
         size -= 1;
 
-        if (size < array.length && array.length > 16) {
-            resize(array.length / 2);
-        }
         return item;
     }
 
@@ -96,14 +97,15 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
             return null;
         }
 
+        if (size < array.length / 4 && size >= 16) {
+            resize(array.length / 4);
+        }
+
         rear = (rear + array.length - 1) % array.length;
         T item = array[rear];
         array[rear] = null;
         size -= 1;
 
-        if (size < array.length && array.length > 16) {
-            resize(array.length / 2);
-        }
         return item;
     }
 
@@ -120,14 +122,19 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof LinkedListDeque)) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null) {
             return false;
         }
 
-        ArrayDeque deque = (ArrayDeque) o;
-        if (this == deque) {
-            return true;
+        if (!(o instanceof ArrayDeque)) {
+            return false;
         }
+
+        ArrayDeque<T> deque = (ArrayDeque<T>) o;
         if (this.size() != deque.size()) {
             return false;
         }
