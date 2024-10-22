@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 import java.util.Objects;
 
-public class LinkedListDeque<T> {
+public class LinkedListDeque<T> implements Deque<T>{
     private class Node{
         T data;
         Node next;
@@ -13,6 +13,24 @@ public class LinkedListDeque<T> {
             data = item;
             next = null;
             prev = null;
+        }
+    }
+
+    private class LinkedListDequeIterator implements Iterator<T>{
+        private int index;
+
+        public LinkedListDequeIterator(){
+            index = 0;
+        }
+
+        public boolean hasNext(){
+            return index < size;
+        }
+
+        public T next(){
+            T nextItem = get(index);
+            index += 1;
+            return nextItem;
         }
     }
 
@@ -116,11 +134,24 @@ public class LinkedListDeque<T> {
         return getRecursiveHelper(index, front.next);
     }
 
-//    public Iterator<T> iterator(){
-//
-//    }
-//
-//    public boolean equals(Object o){
-//
-//    }
+    public Iterator<T> iterator(){
+        return new LinkedListDequeIterator();
+    }
+
+    public boolean equals(Object o){
+        if(!(o instanceof LinkedListDeque)){
+            LinkedListDeque deque = (LinkedListDeque) o;
+            if(this.size() != deque.size()){
+                return false;
+            }
+
+            for(int i = 0; i < this.size(); i++){
+                if(this.get(i) != deque.get(i)){
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 }

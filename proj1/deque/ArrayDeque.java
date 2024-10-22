@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> {
+public class ArrayDeque<T> implements Deque<T>{
     private T[] array;
     private int size;
     private int front;
@@ -13,6 +13,30 @@ public class ArrayDeque<T> {
         size = 0;
         front = 0;
         rear = 1;
+    }
+
+    public ArrayDeque(int capacity){
+        array = (T[]) new Object[capacity];
+        size = 0;
+        front = 0;
+        rear = 1;
+    }
+
+    private class ArrayDequeIterator implements Iterator{
+        private int index;
+        public ArrayDequeIterator(){
+            index = 0;
+        }
+
+        public boolean hasNext(){
+            return index < size;
+        }
+
+        public T next(){
+            T nextItem = get(index);
+            index += 1;
+            return nextItem;
+        }
     }
 
     private void resize(int newSize){
@@ -97,12 +121,25 @@ public class ArrayDeque<T> {
         return array[index];
     }
 
-//    public Iterator<T> iterator(){
-//
-//    }
-//
-//    public boolean equals(Object o){
-//
-//    }
+    public Iterator<T> iterator(){
+        return new ArrayDequeIterator();
+    }
+
+    public boolean equals(Object o){
+        if(!(o instanceof ArrayDeque)){
+            ArrayDeque deque = (ArrayDeque) o;
+            if(this.size() != deque.size()){
+                return false;
+            }
+
+            for(int i = 0; i < this.size(); i++){
+                if(this.get(i) != deque.get(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
 }
